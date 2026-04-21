@@ -1,14 +1,20 @@
 # AAE5303_Reflection_Report
 
 **Student Name:** MAN Chi Lok Louie
+
 **Student ID:** 25001004G
+
 **Group Number:** 我們組 (WMZ)
+
 **Date:** April 21, 2026
 
-Section 1: AI Usage Experience
+##Section 1: AI Usage Experience
 During the AAE5303 project, my interaction with AI tools like Gemini and Google AI was shaped significantly by my unique technical setup. Unlike the majority of students who utilized the provided Docker containers on Windows, I insisted on running the Visual SLAM pipeline natively (via UTM VM) on a MacBook Pro with Apple Silicon (M1 Pro). This decision rendered the "Cursor" tool less useful for direct environment linking, so I relied on Gemini as a high-level research and debugging partner.
 I used AI primarily for three tasks: environment configuration, parameter estimation, and presentation structuring. I used these tools roughly 3–4 times a week during the peak development phases of ORB-SLAM3. The most useful feature was the chat-based troubleshooting for Linux-specific compilation errors and the ability to process external documentation links (like the HKU MaRS drone CAD files) to help estimate extrinsic parameters for the IMU. Because I was working in an ARM-based virtualized environment, I often had to "translate" AI suggestions meant for standard x86 systems into solutions compatible with my Ubuntu 20.04 VM on UTM.
-Section 2: Understanding AI Limitations
+
+---
+
+##Section 2: Understanding AI Limitations
 A critical instance where AI produced misleading results occurred when I attempted to refine the IMU extrinsic parameters to reduce trajectory drifting. The ORB-SLAM3 output was drifting vigorously to the left and upward. I prompted Gemini to suggest a refined Tbc (Body-to-Camera) matrix based on the AMtown02 drone's CAD layout.
 Gemini provided a revised matrix with modified rotation values, claiming it would compensate for the perceived misalignment. However, when applied, the drift became even more "vigorous." I detected this issue through immediate visual inspection of the trajectory in the ORB-SLAM3 viewer—the drone's path deviated significantly from the visual evidence in the AMtown02 video stream.
 The failure happened because the AI lacked the physical intuition of the specific coordinate system conventions used in the HKU MaRS dataset versus the standard OpenCV conventions expected by ORB-SLAM3. It "hallucinated" a geometric correction that looked mathematically plausible but was physically inverted. I eventually had to fix this by manually cross-referencing the dataset's calibration files and the drone's CAD documentation, realizing that I needed to trust the hard data over the AI's "estimated" rotations.
