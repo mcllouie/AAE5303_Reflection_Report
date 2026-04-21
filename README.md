@@ -10,9 +10,9 @@
 
 ## Section 1: AI Usage Experience
 
-During the AAE5303 project, my interaction with AI tools like Gemini and Google AI were shaped significantly by my unique technical setup. Unlike the other students who utilized the provided Docker containers on Windows, I insisted on running the Visual SLAM pipeline natively (via UTM VM) on a MacBook Pro with Apple Silicon (M1 Pro). This decision rendered the "Cursor" tool less useful for direct environment linking, so I relied on Google AI and Gemini as a high-level research and debugging partner.
+During the AAE5303 project, my interaction with AI tools like Gemini and Google AI was shaped significantly by my unique technical setup. Unlike the other students who utilized the provided Docker containers on Windows, I insisted on running the Visual SLAM pipeline natively (via UTM VM) on a MacBook Pro with Apple Silicon (M1 Pro). This decision rendered the "Cursor" tool less useful for direct environment linking, so I relied on Google AI and Gemini as a high-level research and debugging partner.
 
-I used AI primarily for three tasks: environment configuration, parameter estimation, and presentation structuring. I used these tools roughly 3–4 times a week during the whole project. The most useful feature was the chat-based troubleshooting for Linux-specific compilation errors and the ability to process external documentation links (like the HKU MaRS drone CAD files) to help estimate extrinsic parameters for the IMU. Because I was working in an ARM-based virtualized environment, I always had to include the pharse "ARM Ubuntu"  into searching on solutions that compatible with my Ubuntu 20.04 VM on UTM.
+I used AI primarily for three tasks: environment configuration, parameter estimation, and presentation structuring. I used these tools roughly 3–4 times a week during the whole project. The most useful feature was the chat-based troubleshooting for Linux-specific compilation errors and the ability to process external documentation links (like the HKU MaRS drone CAD files) to help estimate extrinsic parameters for the IMU. Because I was working in an ARM-based virtualized environment, I always had to include the phrase "ARM Ubuntu" into searching on solutions that are compatible with my Ubuntu 20.04 VM on UTM.
 
 ---
 
@@ -20,9 +20,9 @@ I used AI primarily for three tasks: environment configuration, parameter estima
 
 A critical instance where AI produced misleading results occurred when I attempted to refine the IMU extrinsic parameters to reduce trajectory drifting. The ORB-SLAM3 output was drifting vigorously to the left and upward. I prompted Gemini to suggest a refined Tbc (Body-to-Camera) matrix based on the AMtown02 drone's CAD layout.
 
-Gemini provided a revised matrix with modified rotation values, claiming it would compensate for the perceived misalignment. However, when applied, drifting still occur. I detected this issue through immediate visual inspection of the trajectory in the ORB-SLAM3 viewer—the drone's path deviated significantly from the visual evidence in the AMtown02 video stream.
+Gemini provided a revised matrix with modified rotation values, claiming it would compensate for the perceived misalignment. However, when applied, drifting still occurred. I detected this issue through immediate visual inspection of the trajectory in the ORB-SLAM3 viewer—the drone's path deviated significantly from the visual evidence in the AMtown02 video stream.
 
-The failure happened because the AI lacked the physical intuition of the specific coordinate system conventions used in the HKU MaRS dataset versus the standard OpenCV conventions expected by ORB-SLAM3. It "hallucinated" a geometric correction that looked mathematically plausible but was physically inverted. Therefore, I realized that I need to trust the hard data over the AI's "estimated" rotations.
+The failure happened because the AI lacked the physical intuition of the specific coordinate system conventions used in the HKU MaRS dataset versus the standard OpenCV conventions expected by ORB-SLAM3. It "hallucinated" a geometric correction that looked mathematically plausible but was physically inverted. Consequently, I realized that I need to trust the hard data over the AI's "estimated" rotations.
 
 ---
 
@@ -35,7 +35,7 @@ Benchmark Iteration: I systematically increased the number of ORB features from 
 
 Reproducibility Testing: I documented my specific steps for the ARM environment in a markdown file to ensure another user could make references to my steps. I cross-checked my output format against the standard Windows/Docker output to ensure compatibility within our team's integrated pipeline.
 
-Comparison with the images: I visually compared the generated trajectories against the AMtown02 images on ORB-SLAM3 preview to ensure that the estimationn process is at least "on-track".
+Comparison with the images: I visually compared the generated trajectories against the AMtown02 images on ORB-SLAM3 preview to ensure that the estimation process is at least "on-track".
 
 ---
 
@@ -66,7 +66,7 @@ The skills that improved the most were my understanding of Linux system architec
 
 AI played a balanced role in my journey. It acted as a "force multiplier" for documentation and drafting—for example, it helped me generate the initial structure for my group presentation slides, allowing me to focus on the technical content. However, I learned not to trust it for 100% of my problems.
 
-I relied on AI appropriately for "boilerplate" tasks and definitions, but I learned that relying on it for high-stakes technical decisions (like IMU calibration) can be unreliable. If I were to do this project again, I would spend more time learning the fundamental Linux system calls earlier on, rather than initially "Googling for solutions" as a first resort. I’ve realized that the most satisfying parts of the project were the ones I solved myself through trial and error, such as the CXX error (yeah, C++...) resolution.
+I relied on AI appropriately for "boilerplate" tasks and definitions, but I learned that relying on it for high-stakes technical decisions (like IMU calibration) can be unreliable. If I were to do this project again, I would spend more time learning the fundamental Linux system operations earlier on, rather than initially "Googling for solutions" as a first resort. I’ve realized that the most satisfying parts of the project were the ones I solved myself through trial and error, such as the CXX error (yeah, C++...) resolution.
 
 ---
 
@@ -84,7 +84,7 @@ Tbc: !!opencv-matrix
             0.999924,  0.008650,  0.008803, -0.09965,
             0.0,       0.0,       0.0,       1.0]
 ```
-Note: This still induce drift because the rotation matrix was not aligned with the actual drone specification.
+Note: This still induced drift because the rotation matrix was not aligned with the actual drone specification.
 
 ### 7.2 Prompt Examples
 
